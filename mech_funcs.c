@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 20:39:02 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/04/01 21:35:54 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/04/01 23:14:03 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@ int	find_min(t_stack_node *a)
 int	find_max(t_stack_node *a)
 {
 	int	max;
-	int	num;
 
-	num = a->content + 1;
 	max = a->content;
 	while (a != NULL)
 	{
-		if (a->content > max && a->content <= num)
+		if (a->content > max)
 			max = a->content;
 		a = a->next;
 	}
