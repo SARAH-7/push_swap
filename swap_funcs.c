@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:19:24 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/04/01 23:21:28 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/04/02 20:04:03 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,11 @@ void	sb_func(t_stack_node **b)
 	(*b)->content = (*b)->next->content;
 	(*b)->next->content = temp;
 	printf("sb\n");
+}
+
+void	ss_func(t_stack_node **a, t_stack_node **b)
+{
+	sa_func(a);
+	sb_func(b);
+	printf("ss\n");
 }

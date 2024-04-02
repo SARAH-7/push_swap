@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 14:52:58 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/04/01 20:31:26 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/04/02 19:43:11 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int ac, char **av)
 			printf("b node: %d\n", b->content);
 			b = b->next;
 		}
-		free(av);
+		// free(av);
 	}
 	return (0);
 }

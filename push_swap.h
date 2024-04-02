@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:06:34 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/04/01 18:11:09 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/04/02 20:19:11 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,16 @@ int				sorted_stack(t_stack_node *a);
 void			not_sorting(t_stack_node **a, t_stack_node **b);
 void			sa_func(t_stack_node **a);
 void			sb_func(t_stack_node **b);
+void			ss_func(t_stack_node **a, t_stack_node **b);
 void			ra_func(t_stack_node **a);
+void			rb_func(t_stack_node **b);
+void			rr_func(t_stack_node **a, t_stack_node **b);
 void			rra_func(t_stack_node **a);
-void			rra_func(t_stack_node **a);
+void			rrb_func(t_stack_node **b);
+void			rrr_func(t_stack_node **a, t_stack_node **b);
 void			sort_three_func(t_stack_node **a);
 void			sort_four_func(t_stack_node **a, t_stack_node **b);
+void			sort_five_func(t_stack_node **a, t_stack_node **b);
 void			mech_turk_algo(t_stack_node **a, t_stack_node **b);
 void			pa_func(t_stack_node **a, t_stack_node **b);
 void			pb_func(t_stack_node **b, t_stack_node **a);
