@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:06:34 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/04/02 20:19:11 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/04/05 22:27:16 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,22 @@ typedef struct s_stack_node
 	int					flag_error;
 	int					content;
 	struct s_stack_node	*next;
+	struct s_stack_node	*prev;
 }			t_stack_node;
+
+typedef struct s_instructions
+{
+	int					sa;
+	int					sb;
+	int					ss;
+	int					ra;
+	int					rb;
+	int					rr;
+	int					rra;
+	int					rrb;
+	int					rrr;
+	int					total;
+}			t_instructions;
 
 int				main(int ac, char **av);
 
@@ -51,5 +66,6 @@ int				find_min(t_stack_node *a);
 int				find_max(t_stack_node *a);
 int				find_pos(t_stack_node *a, int min);
 t_stack_node	*find_last_node(t_stack_node *a);
+t_stack_node	*find_prev_node(t_stack_node *a);
 
 #endif

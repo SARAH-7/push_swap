@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 20:39:02 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/04/01 23:14:03 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/04/05 21:02:23 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,22 @@ t_stack_node	*find_last_node(t_stack_node *a)
 		num = a;
 	}
 	return (num);
+}
+
+t_stack_node	*find_prev_node(t_stack_node *a)
+{
+	t_stack_node	*prev_node;
+
+	prev_node = a;
+	a = a->next;
+	while (a->next != NULL)
+	{
+		if (a->next->content > (prev_node)->content)
+		{
+			(prev_node) = a;
+			break ;
+		}
+		a = a->next;
+	}
+	return (prev_node);
 }
