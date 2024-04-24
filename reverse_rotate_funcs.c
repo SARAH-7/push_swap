@@ -6,55 +6,76 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:19:24 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/04/01 23:20:49 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/04/24 14:31:27 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rra_func(t_stack_node **a)
+void	rra_func(t_stacks *stacks, t_stack_a *head_a, int print)
 {
-	t_stack_node	*second_last_node;
-	t_stack_node	*last_node;
+	t_stack_a	*tmp_node;
+	int			i;
+	int			size;
 
-	last_node = *a;
-	second_last_node = NULL;
-	if (*a == NULL || (*a)->next == NULL)
-		return ;
-	while (last_node->next != NULL)
-	{
-		second_last_node = last_node;
-		last_node = last_node->next;
-	}
-	second_last_node->next = NULL;
-	last_node->next = *a;
-	*a = last_node;
-	printf("rra\n");
+	size = ft_lstsize(head_a);
+	tmp_node = head_a;
+	while (head_a->next != NULL)
+		head_a = head_a->next;
+	head_a->next = tmp_node;
+	stacks->head_a = head_a;
+	tmp_node = stacks->head_a;
+	i = 0;
+	while (i++ < size - 1)
+		tmp_node = tmp_node->next;
+	tmp_node->next = NULL;
+	if (print != 0)
+		printf("rra\n");
 }
 
-void	rrb_func(t_stack_node **b)
+void	rrb_func(t_stacks *stacks, t_stack_b *head_b, int print)
 {
-	t_stack_node	*second_last_node;
-	t_stack_node	*last_node;
+	t_stack_b	*tmp_node;
+	int			i;
+	int			size;
 
-	last_node = *b;
-	second_last_node = NULL;
-	if (*b == NULL || (*b)->next == NULL)
-		return ;
-	while (last_node->next != NULL)
-	{
-		second_last_node = last_node;
-		last_node = last_node->next;
-	}
-	second_last_node->next = NULL;
-	last_node->next = *b;
-	*b = last_node;
-	printf("rrb\n");
+	size = ft_lstsize_b(head_b);
+	tmp_node = head_b;
+	while (head_b->next != NULL)
+		head_b = head_b->next;
+	head_b->next = tmp_node;
+	stacks->head_b = head_b;
+	tmp_node = stacks->head_b;
+	i = 0;
+	while (i++ < size - 1)
+		tmp_node = tmp_node->next;
+	tmp_node->next = NULL;
+	if (print != 0)
+		printf("rrb\n");
 }
 
-void	rrr_func(t_stack_node **a, t_stack_node **b)
+void	rev_rotate_func(t_stacks *stacks, char ch)
 {
-	rra_func(a);
-	rrb_func(b);
-	printf("rrr\n");
+	t_stack_a	*head_a;
+	t_stack_b	*head_b;
+
+	head_a = stacks->head_a;
+	head_b = stacks->head_b;
+	if (ch == 'a')
+		rra_func(stacks, stacks->head_a, 1);
+	else if (ch == 'b')
+	{
+		if (head_b == NULL || head_b->next == NULL)
+			return ;
+		rrb_func(stacks, head_b, 1);
+	}
+	else
+	{
+		if (head_a == NULL || head_a->next == NULL || head_b == NULL
+			|| head_b->next == NULL)
+			return ;
+		rra_func(stacks, stacks->head_a, 0);
+		rrb_func(stacks, head_b, 0);
+		printf("rrr\n");
+	}
 }

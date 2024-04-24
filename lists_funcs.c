@@ -6,13 +6,13 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:35:34 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/03/28 22:41:48 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:21:23 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_lstsize(t_stack_node *a)
+int	ft_lstsize(t_stack_a *a)
 {
 	int	i;
 
@@ -26,8 +26,22 @@ int	ft_lstsize(t_stack_node *a)
 	}
 	return (i);
 }
+int	ft_lstsize_b(t_stack_b *b)
+{
+	int	i;
 
-t_stack_node	*ft_lstlast(t_stack_node *lst)
+	if (!b)
+		return (0);
+	i = 0;
+	while (b)
+	{
+		i++;
+		b = b->next;
+	}
+	return (i);
+}
+
+t_stack_a	*ft_lstlast(t_stack_a *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -36,9 +50,9 @@ t_stack_node	*ft_lstlast(t_stack_node *lst)
 	return (lst);
 }
 
-t_stack_node	ft_lstadd_back(t_stack_node **lst, t_stack_node *new)
+t_stack_a	ft_lstadd_back(t_stack_a **lst, t_stack_a *new)
 {
-	t_stack_node	*add;
+	t_stack_a	*add;
 
 	if (*lst)
 	{

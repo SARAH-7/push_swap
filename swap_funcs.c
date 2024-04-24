@@ -6,39 +6,39 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:19:24 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/04/05 22:16:14 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:17:08 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sa_func(t_stack_node **a)
+void	sa_func(t_stack_a *a)
 {
 	int	temp;
 
-	if (*a && (*a)->next)
+	if (a && a->next)
 	{
-		temp = (*a)->content;
-		(*a)->content = (*a)->next->content;
-		(*a)->next->content = temp;
+		temp = a->content;
+		a->content = a->next->content;
+		a->next->content = temp;
 		printf("sa\n");
 	}
 }
 
-void	sb_func(t_stack_node **b)
+void	sb_func(t_stack_b *b)
 {
 	int	temp;
 
-	if (*b && (*b)->next)
+	if (b && b->next)
 	{
-		temp = (*b)->content;
-		(*b)->content = (*b)->next->content;
-		(*b)->next->content = temp;
+		temp = b->content;
+		b->content = b->next->content;
+		b->next->content = temp;
 		printf("sb\n");
 	}
 }
 
-void	ss_func(t_stack_node **a, t_stack_node **b)
+void	ss_func(t_stack_a *a, t_stack_b *b)
 {
 	sa_func(a);
 	sb_func(b);

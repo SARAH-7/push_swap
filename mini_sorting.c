@@ -6,79 +6,125 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:36:09 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/04/02 19:44:47 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/04/24 17:41:11 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_three_func(t_stack_node **a)
+void	sort_three_func(t_stacks *stacks)
 {
-	if ((*a)->next->content < (*a)->next->next->content
-		&& (*a)->next->next->content < (*a)->content)
-		ra_func(a);
-	if ((*a)->content > (*a)->next->content)
-		sa_func(a);
-	if ((*a)->next->content > (*a)->next->next->content
-		&& (*a)->next->next->content < (*a)->content)
-		rra_func(a);
-	if ((*a)->content < (*a)->next->content
-		&& (*a)->next->content > (*a)->next->next->content)
+	if (stacks->head_a->next->content < stacks->head_a->next->next->content
+		&& stacks->head_a->next->next->content < stacks->head_a->content)
+		rotate_func(stacks, 'a');
+	if (stacks->head_a->content > stacks->head_a->next->content)
+		sa_func(stacks->head_a);
+	if (stacks->head_a->next->content > stacks->head_a->next->next->content
+		&& stacks->head_a->next->next->content < stacks->head_a->content)
+		rev_rotate_func(stacks, 'a');
+	if (stacks->head_a->content < stacks->head_a->next->content
+		&& stacks->head_a->next->content > stacks->head_a->next->next->content)
 	{
-		sa_func(a);
-		ra_func(a);
+		sa_func(stacks->head_a);
+		rotate_func(stacks, 'a');
 	}
 }
 
-void	sort_four_func(t_stack_node **a, t_stack_node **b)
+void	sort_four_func(t_stacks *stacks)
 {
 	int	len;
+	t_stack_a *a;
 
+	a = stacks->head_a;
 	len = 0;
-	pb_func(a, b);
-	sort_three_func(a);
-	len = ft_lstsize(*b);
+	pb_func(stacks);
+	sort_three_func(stacks);
+	len = ft_lstsize_b(stacks->head_b);
 	while (len--)
 	{
-		pa_func(b, a);
-		if (find_pos(*a, find_max(*a)) == 1 && find_max(*a) == ft_lstsize(*a))
-			ra_func(a);
-		else if (find_pos(*a, find_max(*a)) == ft_lstsize(*a))
+		pa_func(stacks);
+		if (find_pos(stacks->head_a, find_max(stacks->head_a)) == 1 && find_max(stacks->head_a) == ft_lstsize(stacks->head_a))
+			rotate_func(stacks, 'a');
+		else if (find_pos(stacks->head_a, find_max(stacks->head_a)) == ft_lstsize(stacks->head_a))
 		{
-			rra_func(a);
-			sa_func(a);
-			ra_func(a);
-			ra_func(a);
+			rev_rotate_func(stacks, 'a');
+			sa_func(stacks->head_a);
+			rotate_func(stacks, 'a');
+			rotate_func(stacks, 'a');
 		}
-		else if (find_pos(*a, find_min(*a)) == 2)
-			sa_func(a);
+		else if (find_pos(stacks->head_a, find_min(stacks->head_a)) == 2)
+			sa_func(stacks->head_a);
 	}
 }
-
-void	sort_five_func(t_stack_node **a, t_stack_node **b)
+void	sort_five_func(t_stacks *stacks)
 {
 	int	i;
+	t_stack_a *a;
 
-	pb_func(a, b);
-	pb_func(a, b);
-	sort_three_func(a);
-	i = ft_lstsize(*b);
+	a = stacks->head_a;
+	pb_func(stacks);
+	pb_func(stacks);
+	sort_three_func(stacks);
+	i = 2;
 	while (i--)
 	{
-		pa_func(b, a);
-		if (find_pos(*a, find_max(*a)) == ft_lstsize(*a)
-			&& (*a)->next->next->content < (*a)->content)
+		if (find_max_b(stacks->head_b) != stacks->head_b->content)
+			sb_func(stacks->head_b);
+		if (find_min_b(stacks->head_b) > stacks->head_a->next->content && find_max_b(stacks->head_b) < find_max(stacks->head_a) && i == 1)
 		{
-			rra_func(a);
-			sa_func(a);
-			ra_func(a);
-			ra_func(a);
+			rev_rotate_func(stacks, 'a');
+			pa_func(stacks);
+			pa_func(stacks);
+			rotate_func(stacks, 'a');
+			rotate_func(stacks, 'a');
+			rotate_func(stacks, 'a');
+			break ;
 		}
-		else if (find_pos(*a, find_min(*a)) == 2
-			&& find_min(*a) < (*a)->content && (*a)->content != find_max(*a))
-			sa_func(a);
-		else if (find_max(*a) == ft_lstsize(*a)
-			|| (*a)->content == find_max(*a))
-			ra_func(a);
+		else if (find_max_b(stacks->head_b) > find_max(stacks->head_a) && find_min_b(stacks->head_b) > stacks->head_a->next->content && find_min_b(stacks->head_b) < find_max(stacks->head_a))
+		{
+			pa_func(stacks);
+			rev_rotate_func(stacks, 'a');
+			pa_func(stacks);
+			rotate_func(stacks, 'a');
+			rotate_func(stacks, 'a');
+			rotate_func(stacks, 'a');
+			break ;
+		}
+		else if (find_min_b(stacks->head_b) > find_max(stacks->head_a))
+		{
+			pa_func(stacks);
+			pa_func(stacks);
+			rev_rotate_func(stacks, 'a');
+			rotate_func(stacks, 'a');
+			rotate_func(stacks, 'a');
+			rotate_func(stacks, 'a');
+			break ;
+		}
+		pa_func(stacks);
+		if (find_pos(stacks->head_a, find_max(stacks->head_a)) == ft_lstsize(stacks->head_a)
+			&& (stacks->head_a)->next->next->content < (stacks->head_a)->content && i != 0)
+		{
+			rev_rotate_func(stacks, 'a');
+			sa_func(stacks->head_a);
+			rotate_func(stacks, 'a');
+			rotate_func(stacks, 'a');
+		}
+		else if (find_pos(stacks->head_a, find_max(stacks->head_a)) == ft_lstsize(stacks->head_a)
+			&& (stacks->head_a)->next->next->content < (stacks->head_a)->content && i == 0)
+		{
+			rev_rotate_func(stacks, 'a');
+			sa_func(stacks->head_a);
+			rev_rotate_func(stacks, 'a');
+			sa_func(stacks->head_a);
+			rotate_func(stacks, 'a');
+			rotate_func(stacks, 'a');
+			rotate_func(stacks, 'a');
+		}
+		else if (find_pos(stacks->head_a, find_min(stacks->head_a)) == 2
+			&& find_min(stacks->head_a) < (stacks->head_a)->content && (stacks->head_a)->content != find_max(stacks->head_a))
+				sa_func(stacks->head_a);
+		else if (find_max(stacks->head_a) == ft_lstsize(stacks->head_a)
+			|| (stacks->head_a)->content == find_max(stacks->head_a))
+			rotate_func(stacks, 'a');
 	}
 }
