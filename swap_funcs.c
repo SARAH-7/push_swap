@@ -6,59 +6,39 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:19:24 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/04/24 11:17:08 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/24 18:03:27 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sa_func(t_stack_a *a)
+void	swap_op(t_stack **t)
 {
-	int	temp;
+	int	tmp;
 
-	if (a && a->next)
-	{
-		temp = a->content;
-		a->content = a->next->content;
-		a->next->content = temp;
-		printf("sa\n");
-	}
+	tmp = (*t)->content;
+	(*t)->content = (*t)->next->content;
+	(*t)->next->content = tmp;
 }
 
-void	sb_func(t_stack_b *b)
+void	swap_func(t_stack **t, char ch)
 {
-	int	temp;
-
-	if (b && b->next)
-	{
-		temp = b->content;
-		b->content = b->next->content;
-		b->next->content = temp;
-		printf("sb\n");
-	}
+	if (t == NULL || (*t)->next == NULL)
+		return ;
+	swap_op(t);
+	if (ch == 'a')
+		ft_printf("sa\n");
+	else if (ch == 'b')
+		ft_printf("sb\n");
+	// if (i == 1)
+	// else if (i == 2)
+	// else if (i == 3)
+	// {
+	// 	if (a == NULL || (*a)->next == NULL || b == NULL
+	// 		|| (*b)->next == NULL)
+	// 		return ;
+	// 	sa_func(a);
+	// 	sb_func(b);
+	// 	ft_printf("ss\n");
+	// }
 }
-
-void	ss_func(t_stack_a *a, t_stack_b *b)
-{
-	sa_func(a);
-	sb_func(b);
-	printf("ss\n");
-}
-
-// void sa_func(t_stack_node **a) {
-//     if (*a && (*a)->next) {
-//         int temp = (*a)->content;
-//         (*a)->content = (*a)->next->content;
-//         (*a)->next->content = temp;
-//         printf("sa\n");
-//     }
-// }
-
-// void sb_func(t_stack_node **b) {
-//     if (*b && (*b)->next) {
-//         int temp = (*b)->content;
-//         (*b)->content = (*b)->next->content;
-//         (*b)->next->content = temp;
-//         printf("sb\n");
-//     }
-// }

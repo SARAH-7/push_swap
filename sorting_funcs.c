@@ -6,13 +6,13 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:40:30 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/04/24 17:35:54 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/24 17:59:28 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	sorted_stack(t_stack_a *a)
+int	sorted_stack(t_stack *a)
 {
 	while (a != NULL && a->next != NULL)
 	{
@@ -23,98 +23,68 @@ int	sorted_stack(t_stack_a *a)
 	return (1);
 }
 
-void	mech_turk_algo(t_stacks *stacks)
+void	check_max_min_b(t_stack **b, t_values *values)
 {
-	int				num;
-	int				prev;
-	struct t_moves	*moves;
-	struct t_cheap	*cheap;
-	t_values		*values;
+	t_stack			*temp;
+	int				max_value;
+	int				min_value;
 
-	moves = malloc(sizeof(t_moves));
-	stacks->moves = moves;
-	cheap = malloc(sizeof(t_cheap));
-	stacks->cheap = cheap;
-	values = malloc(sizeof(t_values));
-	stacks->values = values;
-
-	pb_func(stacks);
-	pb_func(stacks);
-	while (ft_lstsize(stacks->head_a) != 3)
+	if (*b == NULL)
+		return ;
+	temp = *b;
+	max_value = temp->content;
+	min_value = temp->content;
+	while (temp->next != NULL)
 	{
-		node_of_cheapest_move(*stacks);
-		do_cheap_moves(*stacks);
+		temp = temp->next;
+		if (temp->content > max_value)
+			max_value = temp->content;
+		else if (min_value > temp->content)
+			min_value = temp->content;
 	}
-	sort_three_func(stacks);
-	while (ft_lstsize(stacks->head_a) != 0)
-	{
-		pa_func(stacks);
-		if ((stacks->head_a)->content != find_min(stacks->head_a))
-		{
-			
-			prev = find_prev_node(stacks->head_a)->content;
-			if (find_max(stacks->head_a) == find_last_node(stacks->head_a)->content
-				&& prev < (stacks->head_a)->content)
-			{
-				while (find_last_node(stacks->head_a)->content != prev)
-				{
-					rev_rotate_func(stacks, 'a');
-					sa_func(stacks->head_a);
-				}
-				while (find_pos(stacks->head_a, find_max(stacks->head_a)) != ft_lstsize(stacks->head_a))
-					rotate_func(stacks, 'a');
-			}
-			else if (find_pos(stacks->head_a, find_min(stacks->head_a)) == 2
-				&& find_min(stacks->head_a) < (stacks->head_a)->content && (stacks->head_a)->content != find_max(stacks->head_a)
-				&& (stacks->head_a)->content < (stacks->head_a)->next->next->content)
-				sa_func(stacks->head_a);
-			else if ((stacks->head_a)->content == find_max(stacks->head_a))
-				rotate_func(stacks, 'a');
-			else
-			{
-				num = (stacks->head_a)->content;
-				if (find_pos(stacks->head_a, prev) < ft_lstsize(stacks->head_a) / 2)
-				{
-					while ((stacks->head_a)->content <= num)
-					{
-						rotate_func(stacks, 'a');
-						sa_func(stacks->head_a);
-						(stacks->head_a) = (stacks->head_a)->next;
-					}
-					while ((stacks->head_a)->content >= num)
-					{
-						rotate_func(stacks, 'a');
-						sa_func(stacks->head_a);
-						(stacks->head_a) = (stacks->head_a)->next;
-					}
-					while (find_pos(stacks->head_a, find_min(stacks->head_a)) != 1)
-						rev_rotate_func(stacks, 'a');
-				}
-				else
-				{
-					if (find_last_node(stacks->head_a)->content != prev)
-					{
-						rev_rotate_func(stacks, 'a');
-						sa_func(stacks->head_a);
-					}
-					while (find_pos(stacks->head_a, find_max(stacks->head_a)) != ft_lstsize(stacks->head_a))
-						rev_rotate_func(stacks, 'a');
-				}
-			}
-		}
-	}
+	values->min_b = min_value;
+	values->max_b = max_value;
 }
 
-void	not_sorting(t_stacks *stacks)
+void	mech_turk_algo(t_stack **a, t_stack **b)
 {
-	if (ft_lstsize(stacks->head_a) == 2)
-		sa_func(stacks->head_a);
-	else if (ft_lstsize(stacks->head_a) == 3)
-		sort_three_func(stacks);
-	else if (ft_lstsize(stacks->head_a) == 4)
-		sort_four_func(stacks);
-	else if (ft_lstsize(stacks->head_a) == 5)
-		sort_five_func(stacks);
+	t_values	*values;
+	t_moves		*a_moves;
+	t_cheap		*cheapest;
+
+	a_moves = malloc(sizeof(t_moves));
+	cheapest = malloc(sizeof(t_cheap));
+	values = malloc(sizeof(t_values));
+	values->max_b = 0;
+	values->min_b = 0;
+	pb_func(a, b);
+	ft_printf("pb\n");
+	pb_func(a, b);
+	ft_printf("pb\n");
+	while (pb_lstsize(*a) != 3)
+	{
+		check_max_min_b(b, values);
+		node_of_cheapest_move(a, b, values, cheapest);
+		do_cheap_moves(a, b, cheapest);
+	}
+	sort_three_func(a, b);
+	sort_stack_a(a, b, values, a_moves);
+	free(values);
+	free(a_moves);
+	free(cheapest);
+}
+
+t_stack	*not_sorting(t_stack **a, t_stack **b)
+{
+	if (!a || sorted_stack(*a))
+		return (NULL);
+	if (pb_lstsize(*a) == 2)
+		swap_func(a, 'a');
+	else if (pb_lstsize(*a) == 3)
+		sort_three_func(a, b);
+	else if (pb_lstsize(*a) == 4)
+		sort_four_func(a, b);
 	else
-		mech_turk_algo(stacks);
+		mech_turk_algo(a, b);
+	return (*a);
 }

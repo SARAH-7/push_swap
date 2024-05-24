@@ -6,119 +6,100 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 21:02:10 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/04/24 13:41:36 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/21 11:12:16 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	moves_calculator(t_stacks stacks, int i)
-{
-	stacks.moves->total = stacks.moves->pb + stacks.moves->ra
-		+ stacks.moves->rb + stacks.moves->rr + stacks.moves->rra
-		+ stacks.moves->rrb + stacks.moves->rrr;
-	if (i == 1 || (stacks.cheap->total > stacks.moves->total))
-	{
-		stacks.cheap->total = stacks.moves->total;
-		stacks.cheap->pb = stacks.moves->pb;
-		stacks.cheap->ra = stacks.moves->ra;
-		stacks.cheap->rb = stacks.moves->rb;
-		stacks.cheap->rr = stacks.moves->rr;
-		stacks.cheap->rra = stacks.moves->rra;
-		stacks.cheap->rrb = stacks.moves->rrb;
-		stacks.cheap->rrr = stacks.moves->rrr;
-	}
-}
-
-void	check_double_moves(t_stacks stacks)
-{
-	stacks.moves->rr = 0;
-	stacks.moves->rrr = 0;
-	while (stacks.moves->ra != 0 && stacks.moves->rb != 0)
-	{
-		stacks.moves->ra--;
-		stacks.moves->rb--;
-		stacks.moves->rr++;
-	}
-	while (stacks.moves->rra != 0 && stacks.moves->rrb != 0)
-	{
-		stacks.moves->rra--;
-		stacks.moves->rrb--;
-		stacks.moves->rrr++;
-	}
-}
-void	new_max_or_min_stack_b(t_stacks *stacks)
+void	new_max_or_min_stack_b(t_stack **b, t_moves *b_moves, t_values *values)
 {
 	int	i;
 	int	size;
 
-	stacks->moves->rb = 0;
-	stacks->moves->rrb = 0;
-	if (stacks->head_b->content == stacks->values->max_b)
+	b_moves->rb = 0;
+	b_moves->rrb = 0;
+	i = find_pos_b(*b, values->max_b);
+	size = pb_lstsize_b(*b);
+	if (i == 0)
 		return ;
-	i = find_pos_b(stacks->head_b, stacks->values->max_b);
-	size = ft_lstsize_b(stacks->head_b);
-	if (size % 2 == 0)
-	{
-		if (i + 1 > size / 2)
-			stacks->moves->rrb = (size - i);
-		else
-			stacks->moves->rb = i;
-	}
 	else
 	{
 		if (i > size / 2)
-			stacks->moves->rrb = (size - i);
+			b_moves->rrb = size - i;
 		else
-			stacks->moves->rb = i;
+			b_moves->rb = i;
 	}
+
 }
 
-void	new_num_in_stack_b(t_stacks *stacks, int num)
+int	get_smallest_largest_b(t_stack **b, int num, t_values *values)
+{
+	t_stack	*temp;
+	int		smallest_largest;
+	int		max_b;
+
+	temp = *b;
+	max_b = values->max_b;
+	smallest_largest = INT_MIN;
+	while (temp != NULL)
+	{
+		if (smallest_largest < temp->content && temp->content < num
+			&& temp->content != max_b)
+			smallest_largest = temp->content;
+		temp = temp->next;
+	}
+	return (smallest_largest);
+}
+
+void	new_num_in_stack_b(t_stack **b, t_moves *b_moves,
+	int target_num, t_values *values)
 {
 	int	i;
 	int	size;
+	int	num;
 
-	stacks->moves->rb = 0;
-	stacks->moves->rrb = 0;
-	if (stacks->head_b->content == num)
+	b_moves->rb = 0;
+	b_moves->rrb = 0;
+	size = pb_lstsize_b(*b);
+	num = get_smallest_largest_b(b, target_num, values);
+	i = find_pos_b(*b, num);
+	if (i == 0)
 		return ;
-	i = find_pos_b(stacks->head_b, num);
-	size = ft_lstsize_b(stacks->head_b);
-	if (size % 2 == 0)
-	{
-		if (i + 1 > size / 2)
-			stacks->moves->rrb = (size - i);
-		else
-			stacks->moves->rb = i;
-	}
+	if (i + 1 > size / 2)
+		b_moves->rrb = size - i;
 	else
-	{
-		if (i > size / 2)
-			stacks->moves->rrb = (size - i);
-		else
-			stacks->moves->rb = i;
-	}
+		b_moves->rb = i;
 }
 
-void	node_of_cheapest_move(t_stacks stacks)
+void	node_of_cheapest_move(t_stack **a, t_stack **b,
+t_values *values, t_cheap *cheapest)
 {
-	int			i;
-	int			size;
+	t_stack	*temp;
+	t_moves	*a_moves;
+	t_moves	*b_moves;
+	int		i;
+	int		size;
 
-	// head_a = stacks->head_a;
-	size = ft_lstsize(stacks.head_a);
+	temp = *a;
 	i = 0;
+	a_moves = malloc(sizeof(t_moves));
+	b_moves = malloc(sizeof(t_moves));
+	size = pb_lstsize(*a);
 	while (i++ < size)
 	{
-		get_top_stack_a(stacks, stacks.head_a, i - 1);
-		if (stacks.head_a->content > find_max_b(stacks.head_b) || 
-			stacks.head_a->content < find_min_b(stacks.head_b))
-				new_max_or_min_stack_b(&stacks);
+		get_top_stack_a(a, a_moves, temp->content, i - 1);
+		if (temp->content > values->max_b
+			|| temp->content < values->min_b)
+			new_max_or_min_stack_b(b, b_moves, values);
 		else
-			new_num_in_stack_b(&stacks, stacks.head_a->content);
-		check_double_moves(stacks);
-		moves_calculator(stacks, i);
-		stacks.head_a = stacks.head_a->next;
+			new_num_in_stack_b(b, b_moves, temp->content, values);
+		check_double_moves(a_moves, b_moves);
+		moves_calculator(a_moves, b_moves, cheapest, i);
+		temp = temp->next;
 	}
+	free(a_moves);
+	free(b_moves);
 }
+
+

@@ -6,39 +6,71 @@
 #    By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 19:08:49 by sbakhit           #+#    #+#              #
-#    Updated: 2024/04/24 14:23:08 by sbakhit          ###   ########.fr        #
+#    Updated: 2024/05/24 18:16:11 by sbakhit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = push_swap.a
+LIBFT = libft/libft.a
+FT_PRINTF = ft_printf/libftprintf.a
 SOURCES = \
-	ft_isdigit.c ft_split.c lists_funcs.c sorting_funcs.c push_funcs.c mech_funcs.c \
-	swap_funcs.c rotate_funcs.c reverse_rotate_funcs.c mini_sorting.c cheapest_moves.c\
-	ft_strjoin.c ft_strdup.c free_stack.c input_check.c ft_atoi.c check_doubles.c
+	isdigit_issign.c lists_funcs.c sorting_funcs.c push_funcs.c mech_funcs.c \
+	swap_funcs.c rotate_funcs.c reverse_rotate_funcs.c mini_sorting.c cheapest_moves.c \
+	ft_strjoin.c ft_strdup.c free_stack.c input_check.c check_doubles.c \
+	sort_stack_a.c moves_funcs.c min_max_func.c move_min_max.c ps_atoi.c ps_split.c\
+
+BSOURCES = \
+	checker.c isdigit_issign.c lists_funcs.c sorting_funcs.c push_funcs.c mech_funcs.c \
+	swap_funcs.c rotate_funcs.c reverse_rotate_funcs.c mini_sorting.c cheapest_moves.c \
+	ft_strjoin.c ft_strdup.c free_stack.c input_check.c check_doubles.c \
+	sort_stack_a.c moves_funcs.c min_max_func.c move_min_max.c get_next_line.c \
+	get_next_line_utils.c
 
 OBJECTS = $(SOURCES:.c=.o)
+BOBJECTS = $(BSOURCES:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
 # CFLAGS = -Wall -Wextra -Werror -ggdb3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3
 AR = ar
+NAME = push_swap
 MAIN = push_swap.c
 
-all: $(NAME)
-	$(CC) $(CFLAGS) $(MAIN) $(NAME) -o push_swap
+BONUS_NAME = checker
 
-$(NAME): $(OBJECTS)
-	$(AR) -rcs $@ $?
+all: $(NAME)
+
+$(LIBFT):
+	@$(MAKE) -C libft all
+
+$(FT_PRINTF):
+	@$(MAKE) -C ft_printf all
+
+$(NAME): $(MAIN) $(OBJECTS) $(LIBFT) $(FT_PRINTF)
+	$(CC) $(CFLAGS) $(MAIN) $(OBJECTS) $(LIBFT) $(FT_PRINTF) -o $(NAME)
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $?
+	$(CC) -c $(CFLAGS) $<
+
+bonus: $(BONUS_NAME)
+$(BONUS_NAME): $(BOBJECTS) $(LIBFT) $(FT_PRINTF)
+	$(CC) $(CFLAGS) $(BOBJECTS) $(LIBFT) $(FT_PRINTF) -o $(BONUS_NAME)
+
+%.o: %.c
+	$(CC) -c $(CFLAGS) $<
+
 
 clean:
-	rm -f $(OBJECTS)
+	make clean -C libft
+	make clean -C ft_printf
+	rm -f $(OBJECTS) $(BOBJECTS)
 
 fclean: clean
-	rm -f $(NAME)
+	make fclean -C libft
+	make fclean -C ft_printf
+	rm -f $(NAME) $(BONUS_NAME)
 
 re: fclean all
 
 .PHONY: all bonus clean fclean re
+
+

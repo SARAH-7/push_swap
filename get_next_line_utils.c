@@ -1,43 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/07 00:01:10 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/21 14:05:05 by sbakhit          ###   ########.fr       */
+/*   Created: 2024/01/28 13:55:26 by sbakhit           #+#    #+#             */
+/*   Updated: 2024/05/21 02:21:41 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "get_next_line.h" 
 
-size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*gnl_strjoin(const char *s1, const char *s2)
 {
 	char		*str;
 	char		*result;
 
 	if (!s1 || !s2)
 		return (NULL);
-	str = malloc((ft_strlen(s1) + ft_strlen(s2)) + 2);
+	str = malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
 	if (!str)
 		return (NULL);
 	result = str;
 	while (*s1)
 		*str++ = *s1++;
-	*str++ = ' ';
 	while (*s2)
 		*str++ = *s2++;
 	*str = '\0';
 	return (result);
+}
+
+char	*ft_get_line(const char *s, int c)
+{
+	char	*p;
+	char	*t;
+	int		j;
+
+	t = NULL;
+	j = 0;
+	if (!s)
+		return (NULL);
+	p = (char *)s;
+	while (*s && *s != (unsigned char)c)
+		s++;
+	if (*s == (unsigned char)c)
+	{
+		t = malloc((s - p) + 2);
+		if (!t)
+			return (NULL);
+		while (j <= s - p)
+		{
+			t[j] = p[j];
+			j++;
+		}
+		t[j] = '\0';
+		return (t);
+	}
+	return (NULL);
 }

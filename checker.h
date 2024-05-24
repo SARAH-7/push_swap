@@ -1,40 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_funcs.c                                       :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 22:38:19 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/21 08:30:49 by sbakhit          ###   ########.fr       */
+/*   Created: 2024/05/20 23:08:45 by sbakhit           #+#    #+#             */
+/*   Updated: 2024/05/21 02:21:22 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef CHECKER_H
+# define CHECKER_H
 
-void	pb_func(t_stack **a, t_stack **b)
-{
-	t_stack	*temp;
+# include "get_next_line.h"
+# include "push_swap.h"
 
-	if (!*a)
-		return ;
-	temp = *a;
-	*a = (*a)->next;
-	temp->next = *b;
-	*b = temp;
-}
+#endif
 
-void	pa_func(t_stack **a, t_stack **b)
-{
-	t_stack	*temp;
-
-	if (!*b)
-		return ;
-	temp = *b;
-	if ((*b)->next != NULL)
-		*b = (*b)->next;
-	else
-		*b = NULL;
-	temp->next = *a;
-	*a = temp;
-}

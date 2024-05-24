@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_funcs.c                                       :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 22:38:19 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/21 08:30:49 by sbakhit          ###   ########.fr       */
+/*   Created: 2024/01/28 13:55:28 by sbakhit           #+#    #+#             */
+/*   Updated: 2024/05/21 02:02:28 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	pb_func(t_stack **a, t_stack **b)
-{
-	t_stack	*temp;
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <unistd.h>
+# include <string.h>
+# include "libft/libft.h"
 
-	if (!*a)
-		return ;
-	temp = *a;
-	*a = (*a)->next;
-	temp->next = *b;
-	*b = temp;
-}
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
 
-void	pa_func(t_stack **a, t_stack **b)
-{
-	t_stack	*temp;
+char	*get_next_line(int fd);
+char	*ft_get_line(const char *s, int c);
+char	*gnl_strjoin(const char *s1, const char *s2);
 
-	if (!*b)
-		return ;
-	temp = *b;
-	if ((*b)->next != NULL)
-		*b = (*b)->next;
-	else
-		*b = NULL;
-	temp->next = *a;
-	*a = temp;
-}
+#endif
