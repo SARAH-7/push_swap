@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:06:34 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/24 19:03:10 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/25 00:57:33 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ typedef struct cheap
 	int					rrr;
 }						t_cheap;
 char	**ps_split(const char *s, char c);
+int		input_check(char **split_nums);
 void	free_split(char **split_nums);
 int		ps_atoi(const char *str, t_stack **a, char **split_nums);
-int		main(int ac, char **av);
+// int		main(int ac, char **av);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -110,7 +111,6 @@ t_stack	*find_prev_node(t_stack *a);
 void	node_of_cheapest_move(t_stack **a, t_stack **b,
 			t_values *values, t_cheap *cheapest);
 void	free_stack(t_stack **x);
-int		is_num(char **split_nums);
 void	check_for_doubles(t_stack *a);
 void	ft_rotate_a(t_stack **a, int print);
 void	ft_rotate_b(t_stack **b, int print);

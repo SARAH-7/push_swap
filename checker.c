@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 23:07:07 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/22 23:33:21 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/25 01:10:32 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ int	stack_init(t_stack **a, char **split_nums)
 	int		value;
 	int		i;
 
-	if (!is_num(split_nums))
-	{
-		ft_printf("Error\n");
-		exit (EXIT_FAILURE);
-	}
 	i = 0;
 	while (split_nums[i])
 	{
@@ -41,38 +36,56 @@ int	stack_init(t_stack **a, char **split_nums)
 		if (!new_node)
 		{
 			ft_printf("Error\n");
-			exit (EXIT_FAILURE);
+			free_split(split_nums);
+			free_stack(a);
+			exit(EXIT_FAILURE);
 		}
 		new_node->content = value;
 		new_node->next = NULL;
 		pb_lstadd_back(a, new_node);
 		i++;
 	}
+	free_split(split_nums);
 	check_for_doubles(*a);
-	return (0);
+	return (1);
 }
 
 char	**parsing_avs(char **av)
 {
+	int		i;
+	char	*tmp;
 	char	*str;
 	char	**split_nums;
-	char	*temp;
-	int		i;
 
 	i = 2;
-	*av = ft_strdup(av[1]);
+	str = ft_strdup(av[1]);
+	if (!str)
+		return (NULL);
+	if (!input_check(&av[1]))
+	{
+		ft_printf("Error\n");
+		free(str);
+		exit(EXIT_FAILURE);
+	}
 	while (av[i])
 	{
-		str = ft_strjoin(*av, " ");
-		temp = ft_strjoin(str, av[i]);
+		tmp = ft_strjoin(str, " ");
+		if (!tmp)
+			return (free(str), NULL);
 		free(str);
-		free(*av);
-		*av = temp;
+		if (!input_check(&av[i]))
+		{
+			ft_printf("Error\n");
+			exit(EXIT_FAILURE);
+		}
+		str = ft_strjoin(tmp, av[i]);
+		free(tmp);
+		if (!str)
+			return (NULL);
 		i++;
 	}
-	split_nums = ft_split(*av, ' ');
-	free(*av);
-	return (split_nums);
+	split_nums = ft_split(str, ' ');
+	return (free(str), split_nums);
 }
 
 void	instructions(t_stack **a, t_stack **b, char *temp)
@@ -118,7 +131,8 @@ int	main(int ac, char **av)
 	{
 		split_nums = parsing_avs(av);
 		stack_init(&a, split_nums);
-		free_split(split_nums);
+		// free_split(split_nums);
+		
 		while (1)
 		{
 			temp = get_next_line(0);
@@ -140,3 +154,4 @@ int	main(int ac, char **av)
 	}
 	return (0);
 }
+INT_MAX
