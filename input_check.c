@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:55:27 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/21 12:18:44 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/24 22:26:32 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ int	is_num(char **split_nums)
 		j = 0;
 		while (arg[j])
 		{
-			if (!isdigit_issign(arg[j]) || (arg[j + 1] == '-'
-					|| arg[j + 1] == '+') || ((arg[j] == '-' || arg[j] == '+')
-					&& (arg[j + 1] == ' ' || arg[j + 1] == '\0')))
+			if ((!isdigit_issign(arg[j]) || (arg[j + 1] == '-'
+						|| arg[j + 1] == '+') || ((arg[j] == '-'
+							|| arg[j] == '+')
+						&& (arg[j + 1] == ' ' || arg[j + 1] == '\0'))))
 				return (0);
+			ft_printf("av is [%s]\n", arg[j]);
 			j++;
 		}
 		i++;

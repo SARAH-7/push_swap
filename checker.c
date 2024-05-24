@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 23:07:07 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/21 18:40:24 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/22 23:33:21 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,65 +31,56 @@ int	stack_init(t_stack **a, char **split_nums)
 	if (!is_num(split_nums))
 	{
 		ft_printf("Error\n");
-		free_split(split_nums);
-		exit(EXIT_FAILURE);
+		exit (EXIT_FAILURE);
 	}
 	i = 0;
 	while (split_nums[i])
 	{
-		value = ft_atoi(split_nums[i], a, split_nums);
+		value = ps_atoi(split_nums[i], a, split_nums);
 		new_node = malloc(sizeof(t_stack));
 		if (!new_node)
 		{
 			ft_printf("Error\n");
-			free_split(split_nums);
-			free_stack(a);
-			exit(EXIT_FAILURE);
+			exit (EXIT_FAILURE);
 		}
 		new_node->content = value;
 		new_node->next = NULL;
 		pb_lstadd_back(a, new_node);
 		i++;
 	}
-	free_split(split_nums);
 	check_for_doubles(*a);
-	return (1);
+	return (0);
 }
 
-char	**parsing_avs(char **av, char *str, char **split_nums)
+char	**parsing_avs(char **av)
 {
+	char	*str;
+	char	**split_nums;
+	char	*temp;
 	int		i;
-	char	*tmp;
 
-	str = ft_strdup(av[1]);
-	if (!str)
-		return (NULL);
 	i = 2;
+	*av = ft_strdup(av[1]);
 	while (av[i])
 	{
-		tmp = ft_strjoin(str, " ");
-		if (!tmp)
-			return (free(str), NULL);
+		str = ft_strjoin(*av, " ");
+		temp = ft_strjoin(str, av[i]);
 		free(str);
-		str = ft_strjoin(tmp, av[i]);
-		free(tmp);
-		if (!str)
-			return (NULL);
+		free(*av);
+		*av = temp;
 		i++;
 	}
-	split_nums = ft_split(str, ' ');
-	free(str);
+	split_nums = ft_split(*av, ' ');
+	free(*av);
 	return (split_nums);
 }
 
 void	instructions(t_stack **a, t_stack **b, char *temp)
 {
 	if (ft_strncmp(temp, "sa\n", 4) == 0)
-		sa_func(a);
+		swap_op(a);
 	else if (ft_strncmp(temp, "sb\n", 4) == 0)
-		sb_func(b);
-	else if (ft_strncmp(temp, "ss\n", 4) == 0)
-		swap_func(a, b, 's');
+		swap_op(b);
 	else if (ft_strncmp(temp, "pa\n", 4) == 0)
 		pa_func(a, b);
 	else if (ft_strncmp(temp, "pb\n", 4) == 0)
@@ -118,18 +109,16 @@ int	main(int ac, char **av)
 	t_stack	*a;
 	t_stack	*b;
 	char	**split_nums;
-	char	*str;
 	char	*temp;
 
 	a = NULL;
 	b = NULL;
-	str = NULL;
 	split_nums = NULL;
 	if (ac > 1 && av && (ft_strncmp(av[0], "./checker", 9) == 0))
 	{
-		split_nums = parsing_avs(av, str, split_nums);
-		free(*av);
+		split_nums = parsing_avs(av);
 		stack_init(&a, split_nums);
+		free_split(split_nums);
 		while (1)
 		{
 			temp = get_next_line(0);

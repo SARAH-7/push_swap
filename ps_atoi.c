@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:04:53 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/24 18:14:13 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/22 23:13:28 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ps_atoi(const char *str, t_stack **a, char **split_nums)
 	while (*str >= '0' && *str <= '9')
 	{
 		of = check_for_overflow(result, sign, *str);
-		if (of != 1 && !a && !split_nums)
+		if (of != 1 || !a || !split_nums)
 		{
 			free_stack(a);
 			free_split(split_nums);

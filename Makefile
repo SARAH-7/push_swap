@@ -6,7 +6,7 @@
 #    By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 19:08:49 by sbakhit           #+#    #+#              #
-#    Updated: 2024/05/24 18:16:11 by sbakhit          ###   ########.fr        #
+#    Updated: 2024/05/24 19:02:55 by sbakhit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,13 @@ BSOURCES = \
 	checker.c isdigit_issign.c lists_funcs.c sorting_funcs.c push_funcs.c mech_funcs.c \
 	swap_funcs.c rotate_funcs.c reverse_rotate_funcs.c mini_sorting.c cheapest_moves.c \
 	ft_strjoin.c ft_strdup.c free_stack.c input_check.c check_doubles.c \
-	sort_stack_a.c moves_funcs.c min_max_func.c move_min_max.c get_next_line.c \
-	get_next_line_utils.c
+	sort_stack_a.c moves_funcs.c min_max_func.c move_min_max.c get_next_line.c ps_split.c\
+	get_next_line_utils.c ps_atoi.c
 
 OBJECTS = $(SOURCES:.c=.o)
 BOBJECTS = $(BSOURCES:.c=.o)
 
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror -ggdb3 -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror -g3
 AR = ar
 NAME = push_swap

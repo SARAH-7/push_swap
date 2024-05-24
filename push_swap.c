@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 14:52:58 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/24 18:35:04 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/24 23:23:54 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ int	stack_init(t_stack **a, char **split_nums)
 	int		value;
 	int		i;
 
-	if (!is_num(split_nums))
-	{
-		ft_printf("Error\n");
-		free_split(split_nums);
-		exit(EXIT_FAILURE);
-	}
 	i = 0;
 	while (split_nums[i])
 	{
@@ -63,13 +57,25 @@ char	**parsing_avs(char **av)
 	char	*str;
 	char	**split_nums;
 
+	i = 2;
 	str = ft_strdup(av[1]);
 	if (!str)
 		return (NULL);
-	i = 2;
+	// ft_printf("av is [%s]\n", av[1]);
+	// if (!is_num(&av[1]))
+	// {
+	// 	ft_printf("Error\n");
+	// 	exit(EXIT_FAILURE);
+	// }
 	while (av[i])
 	{
 		tmp = ft_strjoin(str, " ");
+		// ft_printf("av is [%`s]\n", av[i]);
+		// if (!is_num(&av[i]))
+		// {
+		// 	ft_printf("Error\n");
+		// 	exit(EXIT_FAILURE);
+		// }
 		if (!tmp)
 			return (free(str), NULL);
 		free(str);
@@ -79,9 +85,8 @@ char	**parsing_avs(char **av)
 			return (NULL);
 		i++;
 	}
-	split_nums = ps_split(str, ' ');
-	free(str);
-	return (split_nums);
+	split_nums = ft_split(str, ' ');
+	return (free(str), split_nums);
 }
 
 int	main(int ac, char **av)

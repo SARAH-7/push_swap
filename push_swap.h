@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:06:34 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/24 18:16:23 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/24 19:03:10 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,10 @@ typedef struct cheap
 	int					rrb;
 	int					rrr;
 }						t_cheap;
-void	free_split(char **split_nums);
 char	**ps_split(const char *s, char c);
+void	free_split(char **split_nums);
 int		ps_atoi(const char *str, t_stack **a, char **split_nums);
+int		main(int ac, char **av);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);

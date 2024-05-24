@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 21:02:10 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/21 11:12:16 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/22 19:33:54 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	new_max_or_min_stack_b(t_stack **b, t_moves *b_moves, t_values *values)
 		else
 			b_moves->rb = i;
 	}
-
 }
 
 int	get_smallest_largest_b(t_stack **b, int num, t_values *values)
@@ -101,5 +100,3 @@ t_values *values, t_cheap *cheapest)
 	free(a_moves);
 	free(b_moves);
 }
-
-

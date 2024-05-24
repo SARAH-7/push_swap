@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:19:24 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/21 03:59:19 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/22 19:49:09 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,3 @@ void	rev_rotate_func(t_stack **a, t_stack **b, char ch)
 		ft_printf("rrr\n");
 	}
 }
-
