@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 23:07:07 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/25 03:55:56 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/25 05:03:24 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,14 @@ int	stack_init(t_stack **a, char **split_nums)
 	return (1);
 }
 
-void	instructions(t_stack **a, t_stack **b, char *temp)
+int	instructions(t_stack **a, t_stack **b, char *temp)
 {
 	if (ft_strncmp(temp, "sa\n", 4) == 0)
 		swap_op(a);
 	else if (ft_strncmp(temp, "sb\n", 4) == 0)
 		swap_op(b);
+	else if (ft_strncmp(temp, "ss\n", 4) == 0)
+		swap_func(a, b, 's');
 	else if (ft_strncmp(temp, "pa\n", 4) == 0)
 		pa_func(a, b);
 	else if (ft_strncmp(temp, "pb\n", 4) == 0)
@@ -71,12 +73,10 @@ void	instructions(t_stack **a, t_stack **b, char *temp)
 	else if (ft_strncmp(temp, "rrb\n", 5) == 0)
 		rev_rotate_op(b);
 	else if (ft_strncmp(temp, "rrr\n", 5) == 0)
-		rev_rotate_func(a, b, 'z');
+		rev_rotate_func(a, b, 'r');
 	else
-	{
-		ft_printf("Error\n");
-		exit (EXIT_FAILURE);
-	}
+		return (0);
+	return (1);
 }
 
 void	read_inst(t_stack **a, t_stack **b)
@@ -88,7 +88,14 @@ void	read_inst(t_stack **a, t_stack **b)
 		temp = get_next_line(0);
 		if (!temp || *temp == '\n')
 			break ;
-		instructions(a, b, temp);
+		if (!instructions(a, b, temp))
+		{
+			ft_printf("Error\n");
+			free(temp);
+			free_stack(a);
+			free_stack(b);
+			exit (EXIT_FAILURE);
+		}
 		free(temp);
 		temp = NULL;
 	}
@@ -103,7 +110,7 @@ int	main(int ac, char **av)
 	a = NULL;
 	b = NULL;
 	split_nums = NULL;
-	if (ac > 1 && av && (ft_strncmp(av[0], "./checker", 9) == 0))
+	if (ac > 2 && av && (ft_strncmp(av[0], "./checker", 9) == 0))
 	{
 		split_nums = parsing_avs(av);
 		stack_init(&a, split_nums);

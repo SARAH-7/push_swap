@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:36:09 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/25 03:39:45 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/25 04:17:24 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ void	sort_four_func(t_stack **a, t_stack **b)
 	ft_printf("pa\n");
 	if (find_min(*a) != (*a)->content)
 	{
-		if (find_pos(*a, find_max(*a)) == 1 && find_max(*a) == pb_lstsize(*a))
+		if (find_pos(*a, find_max(*a)) == 1
+			&& find_max(*a) == find_last_node(*a)->content)
 			rotate_func(a, b, 'a');
-		else if (find_pos(*a, find_max(*a)) == pb_lstsize(*a))
+		else if (find_pos(*a, find_max(*a)) == find_last_node(*a)->content)
 		{
 			rev_rotate_func(a, b, 'a');
 			swap_func(a, b, 'a');
