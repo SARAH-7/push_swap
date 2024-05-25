@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 20:39:02 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/21 11:12:51 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/25 02:31:20 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_stack	*find_last_node(t_stack *a)
 	t_stack	*num;
 
 	num = a;
-
 	while (a->next != NULL)
 	{
 		a = a->next;
@@ -88,8 +87,6 @@ t_stack	*find_prev_node(t_stack *a)
 	return (prev_node);
 }
 
-
-
 void	get_top_stack_a(t_stack **a, t_moves *a_moves, int num, int i)
 {
 	int	size;
@@ -105,4 +102,3 @@ void	get_top_stack_a(t_stack **a, t_moves *a_moves, int num, int i)
 	else
 		a_moves->ra = i;
 }
-

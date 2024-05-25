@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:40:30 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/22 23:36:11 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/25 03:38:52 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_stack	*not_sorting(t_stack **a, t_stack **b)
 	if (!a || sorted_stack(*a))
 		return (NULL);
 	if (pb_lstsize(*a) == 2)
-		swap_func(a, 'a');
+		swap_func(a, b, 'a');
 	else if (pb_lstsize(*a) == 3)
 		sort_three_func(a, b);
 	else if (pb_lstsize(*a) == 4)

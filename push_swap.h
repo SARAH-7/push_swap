@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:06:34 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/25 00:57:33 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/25 03:38:11 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	**ps_split(const char *s, char c);
 int		input_check(char **split_nums);
 void	free_split(char **split_nums);
 int		ps_atoi(const char *str, t_stack **a, char **split_nums);
-// int		main(int ac, char **av);
+char	**parsing_avs(char **av);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -96,11 +96,11 @@ void	ft_rev_rotate(t_stack **b, char ch);
 int		sorted_stack(t_stack *a);
 t_stack	*not_sorting(t_stack **a, t_stack **b);
 void	swap_op(t_stack **t);
-void	ra_func(t_stack **a);
-void	rb_func(t_stack **b);
-void	rr_func(t_stack **a, t_stack **b);
-void	rra_func(t_stack **a);
-void	rrb_func(t_stack **b);
+void	swap_func(t_stack **a, t_stack **b, char ch);
+void	rotate_op(t_stack **t);
+void	rotate_func(t_stack **a, t_stack **b, char ch);
+void	rev_rotate_op(t_stack **b);
+void	rev_rotate_func(t_stack **a, t_stack **b, char ch);
 void	sort_three_func(t_stack **a, t_stack **b);
 void	sort_four_func(t_stack **a, t_stack **b);
 void	mech_turk_algo(t_stack **a, t_stack **b);
@@ -112,14 +112,9 @@ void	node_of_cheapest_move(t_stack **a, t_stack **b,
 			t_values *values, t_cheap *cheapest);
 void	free_stack(t_stack **x);
 void	check_for_doubles(t_stack *a);
-void	ft_rotate_a(t_stack **a, int print);
-void	ft_rotate_b(t_stack **b, int print);
-void	ft_rev_rotate_a(t_stack **a, int print);
-void	ft_rev_rotate_b(t_stack **b, int print);
 void	push_func(t_stack **a, t_stack **b, char ch);
 int		find_max_b(t_stack *b);
 int		find_pos_b(t_stack *b, int min);
-void	swap_func(t_stack **t, char ch);
 int		stack_init(t_stack **a, char **split_nums);
 void	check_min_a(t_stack **a);
 void	check_max_a(t_stack **a);
@@ -138,8 +133,6 @@ void	moves_calculator(t_moves *a_moves, t_moves *b_moves,
 			t_cheap *cheapest, int i);
 void	new_max_or_min_stack_b(t_stack **b, t_moves *b_moves, t_values *values);
 void	node_of_cheapest_move_b(t_stack **b);
-void	rev_rotate_func(t_stack **a, t_stack **b, char ch);
-void	rotate_func(t_stack **a, t_stack **b, char ch);
 void	sort_stack_a(t_stack **a, t_stack **b,
 			t_values *values, t_moves *a_moves);
 void	pa_func(t_stack **a, t_stack **b);

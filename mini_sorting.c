@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:36:09 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/22 23:35:35 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/25 03:39:45 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	sort_three_func(t_stack **a, t_stack **b)
 		&& (*a)->next->next->content < (*a)->content)
 		rotate_func(a, b, 'a');
 	if ((*a)->content > (*a)->next->content)
-		swap_func(a, 'a');
+		swap_func(a, b, 'a');
 	if ((*a)->content < (*a)->next->content
 		&& (*a)->next->content > (*a)->next->next->content)
 	{
-		swap_func(a, 'a');
+		swap_func(a, b, 'a');
 		rotate_func(a, b, 'a');
 	}
 }
@@ -44,11 +44,11 @@ void	sort_four_func(t_stack **a, t_stack **b)
 		else if (find_pos(*a, find_max(*a)) == pb_lstsize(*a))
 		{
 			rev_rotate_func(a, b, 'a');
-			swap_func(a, 'a');
+			swap_func(a, b, 'a');
 			rotate_func(a, b, 'a');
 			rotate_func(a, b, 'a');
 		}
 		else if (find_pos(*a, find_min(*a)) == 2)
-			swap_func(a, 'a');
+			swap_func(a, b, 'a');
 	}
 }
