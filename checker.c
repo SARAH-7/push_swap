@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 23:07:07 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/25 05:03:24 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/25 11:02:22 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,23 +82,30 @@ int	instructions(t_stack **a, t_stack **b, char *temp)
 void	read_inst(t_stack **a, t_stack **b)
 {
 	char	*temp;
+	int		flag;
 
+	flag = 0;
 	while (1)
 	{
 		temp = get_next_line(0);
-		if (!temp || *temp == '\n')
+		if (!temp)
 			break ;
 		if (!instructions(a, b, temp))
 		{
 			ft_printf("Error\n");
-			free(temp);
-			free_stack(a);
-			free_stack(b);
-			exit (EXIT_FAILURE);
+			flag = 1;
 		}
 		free(temp);
 		temp = NULL;
 	}
+	if (flag == 1)
+	{
+		free(temp);
+		free_stack(a);
+		free_stack(b);
+		exit (EXIT_FAILURE);
+	}
+	free(temp);
 }
 
 int	main(int ac, char **av)
@@ -110,7 +117,7 @@ int	main(int ac, char **av)
 	a = NULL;
 	b = NULL;
 	split_nums = NULL;
-	if (ac > 2 && av && (ft_strncmp(av[0], "./checker", 9) == 0))
+	if (ac > 1 && av && (ft_strncmp(av[0], "./checker", 9) == 0))
 	{
 		split_nums = parsing_avs(av);
 		stack_init(&a, split_nums);

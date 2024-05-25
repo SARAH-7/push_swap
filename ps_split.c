@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:01:46 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/24 18:40:07 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/25 06:58:40 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,10 @@ char	*ps_copy_str(const char *s, int numberofletters, char **trgh)
 	return (split);
 }
 
-char	**ps_split(const char *s, char c)
+int	assign_split(const char *s, char c, char **split)
 {
 	int		num_of_letters;
-	char	**split;
-	int		i;
 
-	if (!s)
-		return (NULL);
-	split = malloc((ps_wordcount(s, c) + 1) * sizeof(char *));
-	if (!split)
-		return (NULL);
-	i = 0;
 	while (*s)
 	{
 		num_of_letters = 0;
@@ -86,14 +78,28 @@ char	**ps_split(const char *s, char c)
 		}
 		if (num_of_letters > 0)
 		{
-			split[i] = ps_copy_str (s, num_of_letters, split);
-			if (!split[i])
-				return (free_split(split), NULL);
-			i++;
+			*split = ps_copy_str (s, num_of_letters, split);
+			if (!*split)
+				return (free_split(split), 0);
+			split++;
 		}
 		else
 			s++;
 	}
-	split[i] = NULL;
+	*split = NULL;
+	return (1);
+}
+
+char	**ps_split(const char *s, char c)
+{
+	char	**split;
+
+	if (!s)
+		return (NULL);
+	split = malloc((ps_wordcount(s, c) + 1) * sizeof(char *));
+	if (!split)
+		return (NULL);
+	if (!assign_split(s, c, split))
+		return (NULL);
 	return (split);
 }
