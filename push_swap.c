@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 14:52:58 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/25 04:18:06 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/29 19:52:35 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ void	free_split(char **split_nums)
 	free(split_nums);
 }
 
+void	error_msg(void)
+{
+	write(2, "Error\n", 6);
+	exit(EXIT_FAILURE);
+}
+
 int	stack_init(t_stack **a, char **split_nums)
 {
 	t_stack	*new_node;
@@ -35,7 +41,7 @@ int	stack_init(t_stack **a, char **split_nums)
 		new_node = malloc(sizeof(t_stack));
 		if (!new_node)
 		{
-			ft_printf("Error\n");
+			write(2, "Error\n", 6);
 			free_split(split_nums);
 			free_stack(a);
 			exit(EXIT_FAILURE);
@@ -60,17 +66,13 @@ int	main(int ac, char **av)
 	b = NULL;
 	if (ac > 1)
 	{
+		if (ft_strlen(av[1]) <= 0)
+			error_msg();
 		split_nums = parsing_avs(av);
 		if (!split_nums)
-		{
-			ft_printf("Error\n");
-			exit(EXIT_FAILURE);
-		}
+			error_msg();
 		if (!stack_init(&a, split_nums))
-		{
-			ft_printf("Error\n");
-			exit(EXIT_FAILURE);
-		}
+			error_msg();
 		if (!sorted_stack(a))
 			not_sorting(&a, &b);
 		free_stack(&a);

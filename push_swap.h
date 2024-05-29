@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:06:34 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/25 03:38:11 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/25 11:08:21 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,6 @@
 # include <limits.h>
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
-
-typedef struct t_stack_a
-{
-	int					content;
-	struct t_stack_a	*next;
-}						t_stack_a;
-
-typedef struct t_stack_b
-{
-	int					content;
-	struct t_stack_b	*next;
-}						t_stack_b;
 
 typedef struct stack
 {
@@ -85,14 +73,14 @@ void	free_split(char **split_nums);
 int		ps_atoi(const char *str, t_stack **a, char **split_nums);
 char	**parsing_avs(char **av);
 char	*ft_strdup(const char *s1);
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
+// size_t	ft_strlen(const char *s);
+// char	*ft_strjoin(char const *s1, char const *s2);
 int		isdigit_issign(int c);
 int		pb_lstsize(t_stack *a);
 int		pb_lstsize_b(t_stack *b);
 t_stack	*pb_lstlast(t_stack *a);
 t_stack	pb_lstadd_back(t_stack **lst, t_stack *new);
-void	ft_rev_rotate(t_stack **b, char ch);
+// void	ft_rev_rotate(t_stack **b, char ch);
 int		sorted_stack(t_stack *a);
 t_stack	*not_sorting(t_stack **a, t_stack **b);
 void	swap_op(t_stack **t);
@@ -116,8 +104,8 @@ void	push_func(t_stack **a, t_stack **b, char ch);
 int		find_max_b(t_stack *b);
 int		find_pos_b(t_stack *b, int min);
 int		stack_init(t_stack **a, char **split_nums);
-void	check_min_a(t_stack **a);
-void	check_max_a(t_stack **a);
+// void	check_min_a(t_stack **a);
+// void	check_max_a(t_stack **a);
 void	check_max_min_b(t_stack **b, t_values *values);
 void	check_double_moves(t_moves *a_moves, t_moves *b_moves);
 void	do_cheap_moves(t_stack **a, t_stack **b, t_cheap *cheapest);

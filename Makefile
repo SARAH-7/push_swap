@@ -6,7 +6,7 @@
 #    By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 19:08:49 by sbakhit           #+#    #+#              #
-#    Updated: 2024/05/25 03:54:19 by sbakhit          ###   ########.fr        #
+#    Updated: 2024/05/28 15:58:22 by sbakhit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJECTS = $(SOURCES:.c=.o)
 BOBJECTS = $(BSOURCES:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 AR = ar
 NAME = push_swap
 MAIN = push_swap.c

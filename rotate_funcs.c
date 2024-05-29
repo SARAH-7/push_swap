@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:19:24 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/25 03:35:45 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/28 15:16:43 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	rotate_func(t_stack **a, t_stack **b, char ch)
 {
 	if (ch == 'a')
 	{
-		if (a == NULL || (*a)->next == NULL)
+		if (a == NULL || *a == NULL || (*a)->next == NULL)
 			return ;
 		rotate_op(a);
 	}

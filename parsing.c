@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 02:57:56 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/25 07:16:39 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/28 15:39:48 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ char	*first_arg(char	*str, char **av)
 	str = ft_strdup(av[1]);
 	if (!str)
 		return (NULL);
-	if (!input_check(&av[1]))
+	if (!input_check(av))
 	{
-		ft_printf("Error\n");
+		write(2, "Error\n", 6);
 		free(str);
 		exit(EXIT_FAILURE);
 	}

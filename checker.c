@@ -6,7 +6,7 @@
 /*   By: sbakhit <sbakhit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 23:07:07 by sbakhit           #+#    #+#             */
-/*   Updated: 2024/05/25 11:02:22 by sbakhit          ###   ########.fr       */
+/*   Updated: 2024/05/26 08:29:52 by sbakhit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	stack_init(t_stack **a, char **split_nums)
 		new_node = malloc(sizeof(t_stack));
 		if (!new_node)
 		{
-			ft_printf("Error\n");
+			write(2, "Error\n", 6);
 			free_split(split_nums);
 			free_stack(a);
 			exit(EXIT_FAILURE);
@@ -92,7 +92,7 @@ void	read_inst(t_stack **a, t_stack **b)
 			break ;
 		if (!instructions(a, b, temp))
 		{
-			ft_printf("Error\n");
+			write(2, "Error\n", 6);
 			flag = 1;
 		}
 		free(temp);
